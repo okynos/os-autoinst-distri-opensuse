@@ -9,7 +9,7 @@ schedule:
     - installation/module_registration/register_module_transactional
   system_role:
     - installation/system_role/accept_selected_role_transactional_server
-  default_systemd_target:
+  software:
     - installation/installation_settings/validate_default_target
   system_preparation:
     - console/hostname

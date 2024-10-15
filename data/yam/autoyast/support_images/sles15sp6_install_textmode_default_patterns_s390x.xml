@@ -136,7 +136,6 @@ exit 0
       <package>xfsprogs</package>
       <package>wicked</package>
       <package>sle-module-server-applications-release</package>
-      <package>sle-module-python3-release</package>
       <package>sle-module-basesystem-release</package>
       <package>openssh</package>
       <package>kdump</package>
@@ -164,11 +163,6 @@ exit 0
   </software>
   <suse_register t="map">
     <addons t="list">
-      <addon t="map">
-        <arch>{{ARCH}}</arch>
-        <name>sle-module-python3</name>
-        <version>{{VERSION}}</version>
-      </addon>
       <addon t="map">
         <arch>{{ARCH}}</arch>
         <name>sle-module-server-applications</name>

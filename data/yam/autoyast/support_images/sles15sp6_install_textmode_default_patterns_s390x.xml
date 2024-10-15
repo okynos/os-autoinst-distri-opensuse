@@ -135,7 +135,6 @@ exit 0
     <packages t="list">
       <package>xfsprogs</package>
       <package>wicked</package>
-      <package>sle-module-basesystem-release</package>
       <package>openssh</package>
       <package>kdump</package>
       <package>iproute2</package>
@@ -161,13 +160,6 @@ exit 0
     </products>
   </software>
   <suse_register t="map">
-    <addons t="list">
-      <addon t="map">
-        <arch>{{ARCH}}</arch>
-        <name>sle-module-basesystem</name>
-        <version>{{VERSION}}</version>
-      </addon>
-    </addons>
     <do_registration t="boolean">true</do_registration>
     <install_updates t="boolean">true</install_updates>
     <reg_code>{{SCC_REGCODE}}</reg_code>

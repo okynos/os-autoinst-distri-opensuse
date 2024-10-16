@@ -108,6 +108,7 @@ exit 0
   </services-manager>
   <software t="map">
     <packages t="list">
+      <package>sle-module-hpc-release</package>
       <package>sle-module-server-applications-release</package>
       <package>sle-module-python3-release</package>
       <package>sle-module-basesystem-release</package>
@@ -129,10 +130,6 @@ exit 0
       <pattern>x11</pattern>
       <pattern>x11_yast</pattern>
       <pattern>yast2_basis</pattern>
-      <pattern>hpc_compute_node</pattern>
-      <pattern>hpc_development_node</pattern>
-      <pattern>hpc_libraries</pattern>
-      <pattern>hpc_workload_server</pattern>
     </patterns>
     <products t="list">
       <product>SLES</product>
@@ -142,8 +139,13 @@ exit 0
     <addons t="list">
       <addon t="map">
         <arch>{{ARCH}}</arch>
+        <name>sle-module-hpc</name>
+	      <version>{{VERSION}}</version>
+      </addon>
+      <addon t="map">
+        <arch>{{ARCH}}</arch>
         <name>sle-module-python3</name>
-	<version>{{VERSION}}</version>
+	      <version>{{VERSION}}</version>
       </addon>
       <addon t="map">
         <arch>{{ARCH}}</arch>

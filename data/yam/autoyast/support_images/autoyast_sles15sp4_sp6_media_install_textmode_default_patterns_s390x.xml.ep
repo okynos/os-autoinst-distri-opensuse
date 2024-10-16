@@ -2,7 +2,6 @@
 <!DOCTYPE profile>
 <profile xmlns="http://www.suse.com/1.0/yast2ns" xmlns:config="http://www.suse.com/1.0/configns">
   <general>
-    <self_update config:type="boolean">false</self_update>
     <mode>
       <confirm t="boolean">false</confirm>
       <confirm_base_product_license t="boolean">true</confirm_base_product_license>

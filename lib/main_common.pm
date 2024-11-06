@@ -2296,6 +2296,7 @@ sub load_mitigation_tests {
 
 sub load_system_prepare_tests {
     loadtest 'console/system_prepare' unless is_opensuse;
+    loadtest 'autoyast/clone';
     loadtest 'ses/install_ses' if check_var_array('ADDONS', 'ses') || check_var_array('SCC_ADDONS', 'ses');
     if (is_updates_tests and !get_var("USER_SPACE_TESTSUITES")) {
         if (is_transactional) {

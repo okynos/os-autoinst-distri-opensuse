@@ -21,9 +21,17 @@ BEGIN {
 }
 use bootloader_s390;
 use bootloader_zkvm;
+use bootloader_pvm;
 
 sub run {
     my $self = shift;
+
+    # prepare kernel parameters
+    if (my $agama_auto = get_var('AGAMA_AUTO')) {
+        my $path = data_url($agama_auto);
+        set_var('EXTRABOOTPARAMS', get_var('EXTRABOOTPARAMS', '') . " agama.auto=\"$path\"");
+    }
+    my @params = split ' ', trim(get_var('EXTRABOOTPARAMS', ''));
 
     # for now using legacy code to handle s390x
     if (is_s390x()) {
@@ -37,23 +45,21 @@ sub run {
         return;
     }
 
-    my $grub_menu = $testapi::distri->get_grub_menu_agama();
-    my $grub_entry_edition = $testapi::distri->get_grub_entry_edition();
-    my $agama_up_an_running = $testapi::distri->get_agama_up_an_running();
-
-    # prepare kernel parameters
-    if (my $agama_auto = get_var('AGAMA_AUTO')) {
-        my $path = data_url($agama_auto);
-        set_var('EXTRABOOTPARAMS', get_var('EXTRABOOTPARAMS', '') . " agama.auto=\"$path\"");
+    if (is_pvm_hmc()) {
+        $self->bootloader_pvm::boot_hmc_pvm();
     }
-    my @params = split ' ', trim(get_var('EXTRABOOTPARAMS', ''));
+    else {
+        my $grub_menu = $testapi::distri->get_grub_menu_agama();
+        my $grub_entry_edition = $testapi::distri->get_grub_entry_edition();
+        my $agama_up_an_running = $testapi::distri->get_agama_up_an_running();
 
-    $grub_menu->expect_is_shown();
-    $grub_menu->edit_current_entry();
-    $grub_entry_edition->move_cursor_to_end_of_kernel_line();
-    $grub_entry_edition->type(\@params);
-    $grub_entry_edition->boot();
-    $agama_up_an_running->expect_is_shown();
+        $grub_menu->expect_is_shown();
+        $grub_menu->edit_current_entry();
+        $grub_entry_edition->move_cursor_to_end_of_kernel_line();
+        $grub_entry_edition->type(\@params);
+        $grub_entry_edition->boot();
+        $agama_up_an_running->expect_is_shown();
+    }
 }
 
 1;

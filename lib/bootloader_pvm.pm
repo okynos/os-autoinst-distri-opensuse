@@ -127,8 +127,13 @@ sub enter_netboot_parameters {
     bootmenu_default_params;
     bootmenu_network_source;
     specific_bootmenu_params;
-    registration_bootloader_params(utils::VERY_SLOW_TYPING_SPEED) unless get_var('NTLM_AUTH_INSTALL');
-    type_string_slow remote_install_bootmenu_params;
+    if (!get_var('AGAMA_TEST')){
+        registration_bootloader_params(utils::VERY_SLOW_TYPING_SPEED) unless get_var('NTLM_AUTH_INSTALL');
+        type_string_slow remote_install_bootmenu_params;
+    }elsif (my $iso = get_var('ISO')) {
+        my $host = get_var('OPENQA_HOSTNAME', 'openqa.opensuse.org');
+        type_string_slow " root=live:http://$host/assets/repo/$iso";
+    }
     type_string_slow " fips=1" if (get_var('FIPS_INSTALLATION'));
     type_string_slow " UPGRADE=1" if (get_var('UPGRADE'));
     send_key 'ret';
@@ -153,13 +158,17 @@ sub prepare_pvm_installation {
     save_screenshot;
 
     # pvm has sometimes extrem performance issue, increase timeout for booting up after enter_netboot_parameters
-    assert_screen(["pvm-grub-menu", "novalink-successful-first-boot"], 300);
+    assert_screen(["pvm-grub-menu", "novalink-successful-first-boot", "agama-successful-first-boot"], 300);
     if (match_has_tag "pvm-grub-menu") {
         # During boot pvm-grub menu was seen again
         # Will try to setup linux and initrd again up to 3 times
         $boot_attempt++;
         die "Boot process restarted too many times" if ($boot_attempt > 3);
         return (bootloader_pvm::prepare_pvm_installation $boot_attempt);
+    }
+    if (match_has_tag "agama-successful-first-boot") {
+        prepare_disks;
+        return 0;
     }
 
     assert_screen("run-yast-ssh", 300);

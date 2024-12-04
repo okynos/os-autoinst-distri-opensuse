@@ -158,17 +158,13 @@ sub prepare_pvm_installation {
     save_screenshot;
 
     # pvm has sometimes extrem performance issue, increase timeout for booting up after enter_netboot_parameters
-    assert_screen(["pvm-grub-menu", "novalink-successful-first-boot", "agama-successful-first-boot"], 300);
+    assert_screen(["pvm-grub-menu", "novalink-successful-first-boot"], 300);
     if (match_has_tag "pvm-grub-menu") {
         # During boot pvm-grub menu was seen again
         # Will try to setup linux and initrd again up to 3 times
         $boot_attempt++;
         die "Boot process restarted too many times" if ($boot_attempt > 3);
         return (bootloader_pvm::prepare_pvm_installation $boot_attempt);
-    }
-    if (match_has_tag "agama-successful-first-boot") {
-        prepare_disks;
-        return 0;
     }
 
     assert_screen("run-yast-ssh", 300);
@@ -293,7 +289,20 @@ sub boot_hmc_pvm {
         return;
     }
     get_into_net_boot;
-    prepare_pvm_installation;
+    if (get_var('AGAMA_TEST')) {
+        enter_netboot_parameters;
+        enter_cmd "boot";
+        save_screenshot;
+
+        assert_screen(["agama-successful-first-boot"], 300);
+
+        if (!get_var('KEEP_DISKS')){
+            prepare_disks;
+        }
+    }
+    else {
+        prepare_pvm_installation;
+    }
 }
 
 =head2 boot_spvm

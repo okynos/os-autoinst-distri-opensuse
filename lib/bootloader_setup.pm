@@ -592,22 +592,23 @@ sub bootmenu_default_params {
         }
         push @params, "Y2DEBUG=1";
     }
-    elsif (get_var('AGAMA') || get_var('AGAMA_TEST')) {
-        unless (get_var('AGAMA_TEST')) {
+    elsif (get_var('AGAMA')) {
             wait_screen_change { send_key "e" };
             send_key "down";
             send_key "down";
             send_key "down";
             send_key "down";
             wait_screen_change { send_key "end" };
-        }
         # REPO_0 should be set everywhere where we rsync repo (aside from iso)
-        if (get_var('REPO_0') && !get_var('AGAMA_TEST')) {
+        if (get_var('REPO_0')) {
             my $host = get_var('OPENQA_HOSTNAME', 'openqa.opensuse.org');
             my $repo = get_var('REPO_0');
             # agama.install_url supports comma separated list if more repos are needed ...
             push @params, "agama.install_url=http://$host/assets/repo/$repo";
         }
+        push @params, "live.password=$testapi::password";
+    }
+    elsif (get_var('AGAMA_TEST')) {
         push @params, "live.password=$testapi::password";
     }
     else {
@@ -1632,9 +1633,6 @@ sub prepare_disks {
 
     #exclude device 254(zram) as wipefs fails on /dev/zram1 in openSUSE
     my $disks = script_output('lsblk -n -l -o NAME -d -e 7,11,254');
-    if(get_var('AGAMA_TEST')){
-        $disks = script_output('lsblk -n -l -o NAME -d -e 7,11,253,254');
-    }
     for my $d (split('\n', $disks)) {
         script_run "wipefs -af /dev/$d";
         script_run "sync";

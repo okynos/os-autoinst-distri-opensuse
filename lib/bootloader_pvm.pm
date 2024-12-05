@@ -290,6 +290,7 @@ sub boot_hmc_pvm {
     }
     get_into_net_boot;
     if (get_var('AGAMA_TEST')) {
+        reset_lpar_netboot;
         enter_netboot_parameters;
         enter_cmd "boot";
         save_screenshot;

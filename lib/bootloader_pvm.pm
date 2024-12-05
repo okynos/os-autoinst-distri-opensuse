@@ -289,25 +289,26 @@ sub boot_hmc_pvm {
         return;
     }
     get_into_net_boot;
-    if (get_var('AGAMA_TEST')) {
-        my $boot_attempt = 0;
-        while (!match_has_tag('agama-successful-first-boot')) {
-            enter_netboot_parameters;
-            enter_cmd "boot";
-            save_screenshot;
+    prepare_pvm_installation;
+    #if (get_var('AGAMA_TEST')) {
+    #    my $boot_attempt = 0;
+    #    while (!match_has_tag('agama-successful-first-boot')) {
+    #        enter_netboot_parameters;
+    #        enter_cmd "boot";
+    #        save_screenshot;
 
-            assert_screen(["agama-successful-first-boot"], 300);
-            die "Boot process restarted too many times" if ($boot_attempt > 3);
-            $boot_attempt++;
-        }
+    #        assert_screen(["agama-successful-first-boot"], 300);
+    #        die "Boot process restarted too many times" if ($boot_attempt > 3);
+    #        $boot_attempt++;
+    #    }
 
-        if (!get_var('KEEP_DISKS')){
-            prepare_disks;
-        }
-    }
-    else {
-        prepare_pvm_installation;
-    }
+    #    if (!get_var('KEEP_DISKS')){
+    #        prepare_disks;
+    #    }
+    #}
+    #else {
+    #    prepare_pvm_installation;
+    #}
 }
 
 =head2 boot_spvm

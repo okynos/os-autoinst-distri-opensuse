@@ -28,7 +28,7 @@ sub type {
     save_screenshot();
 }
 
-sub enter_key {
+sub send_return_key {
     my ($self) = @_;
     send_key($self->{key_return});
 }

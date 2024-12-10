@@ -77,10 +77,10 @@ sub run {
         }
         my $host = get_var('OPENQA_HOSTNAME', 'openqa.opensuse.org');
         $grub_edition->type("root=live:http://$host/assets/repo/$iso");
-        $grub_edition->key_return();
+        $grub_edition->send_return_key();
 
         $grub_edition->type("initrd $mntpoint/initrd");
-        $grub_edition->key_return();
+        $grub_edition->send_return_key();
     }else{
         $grub_menu->expect_is_shown();
         $grub_menu->edit_current_entry();

@@ -22,6 +22,7 @@ BEGIN {
 use bootloader_s390;
 use bootloader_zkvm;
 use bootloader_pvm;
+use bootloader_setup;
 
 sub run {
     my $self = shift;

@@ -53,11 +53,11 @@ sub run {
         my $repo = get_required_var('REPO_0');
         my $mntpoint = "mnt/openqa/repo/$repo/boot/ppc64le";
 
-    if (my $ppc64le_grub_http = get_var('PPC64LE_GRUB_HTTP')) {
-        # Enable grub http protocol to load file from OSD: (http,10.145.10.207)/assets/repo/$repo/boot/ppc64le
-        $mntpoint = "$ppc64le_grub_http/assets/repo/$repo/boot/ppc64le";
-        record_info("Updated boot path for PPC64LE_GRUB_HTTP defined", $mntpoint);
-    }
+        if (my $ppc64le_grub_http = get_var('PPC64LE_GRUB_HTTP')) {
+            # Enable grub http protocol to load file from OSD: (http,10.145.10.207)/assets/repo/$repo/boot/ppc64le
+            $mntpoint = "$ppc64le_grub_http/assets/repo/$repo/boot/ppc64le";
+            record_info("Updated boot path for PPC64LE_GRUB_HTTP defined", $mntpoint);
+        }
 
         $self->bootloader_pvm::boot_pvm();
         $grub_menu->expect_is_shown();
@@ -89,6 +89,9 @@ sub run {
     }
 
     $grub_edition->boot();
+    if (!get_var('KEEP_DISKS')){
+        prepare_disks;
+    }
     my $agama_up_an_running = $testapi::distri->get_agama_up_an_running();
     $agama_up_an_running->expect_is_shown();
 }

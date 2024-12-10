@@ -289,19 +289,7 @@ sub boot_hmc_pvm {
         return;
     }
     get_into_net_boot;
-
-    if (get_var('AGAMA_TEST')) {
-        enter_netboot_parameters;
-        enter_cmd "boot";
-        save_screenshot;
-
-        if (!get_var('KEEP_DISKS')){
-            prepare_disks;
-        }
-    }
-    else {
-        prepare_pvm_installation;
-    }
+    prepare_pvm_installation unless get_var('AGAMA_TEST');
 }
 
 =head2 boot_spvm

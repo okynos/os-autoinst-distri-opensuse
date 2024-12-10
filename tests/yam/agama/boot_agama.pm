@@ -47,7 +47,6 @@ sub run {
 
     my $grub_menu = $testapi::distri->get_grub_menu_agama();
     my $grub_edition = $testapi::distri->get_grub_edition();
-    $grub_menu->expect_is_shown();
 
     if (is_pvm_hmc()) {
         my $iso = get_required_var('ISO');
@@ -61,6 +60,7 @@ sub run {
     }
 
         $self->bootloader_pvm::boot_pvm();
+        $grub_menu->expect_is_shown();
         $grub_menu->cmd();
 
         $grub_edition->type("linux $mntpoint/linux");
@@ -84,6 +84,7 @@ sub run {
 
         $grub_edition->boot();
     }else{
+        $grub_menu->expect_is_shown();
         $grub_menu->edit_current_entry();
         $grub_edition->move_cursor_to_end_of_kernel_line();
         $grub_edition->type(\@params);

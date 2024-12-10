@@ -22,7 +22,7 @@ sub new {
 
 sub type {
     my ($self, $args) = @_;
-    type_string_slow("@$args ", max_interval => $self->{max_interval});
+    type_string_slow("$args ", max_interval => $self->{max_interval});
     wait_still_screen(1);
     save_screenshot();
 }

@@ -608,9 +608,6 @@ sub bootmenu_default_params {
         }
         push @params, "live.password=$testapi::password";
     }
-    elsif (get_var('AGAMA_TEST')) {
-        push @params, "live.password=$testapi::password";
-    }
     else {
         # On JeOS and MicroOS we don't have YaST installer.
         push @params, "Y2DEBUG=1" unless is_jeos || is_microos || is_selfinstall || (is_sle_micro && get_var('BOOT_HDD_IMAGE'));

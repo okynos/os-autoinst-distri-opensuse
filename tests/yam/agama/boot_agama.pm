@@ -45,21 +45,53 @@ sub run {
         return;
     }
 
-    if (is_pvm_hmc()) {
-        $self->bootloader_pvm::boot_hmc_pvm();
-    }
-    else {
-        my $grub_menu = $testapi::distri->get_grub_menu_agama();
-        my $grub_entry_edition = $testapi::distri->get_grub_entry_edition();
-        my $agama_up_an_running = $testapi::distri->get_agama_up_an_running();
+    my $grub_menu = $testapi::distri->get_grub_menu_agama();
+    my $grub_edition = $testapi::distri->get_grub_edition();
+    $grub_menu->expect_is_shown();
 
-        $grub_menu->expect_is_shown();
-        $grub_menu->edit_current_entry();
-        $grub_entry_edition->move_cursor_to_end_of_kernel_line();
-        $grub_entry_edition->type(\@params);
-        $grub_entry_edition->boot();
-        $agama_up_an_running->expect_is_shown();
+    if (is_pvm_hmc()) {
+        my $iso = get_required_var('ISO');
+        my $repo = get_required_var('REPO_0');
+        my $mntpoint = "mnt/openqa/repo/$repo/boot/ppc64le";
+
+    if (my $ppc64le_grub_http = get_var('PPC64LE_GRUB_HTTP')) {
+        # Enable grub http protocol to load file from OSD: (http,10.145.10.207)/assets/repo/$repo/boot/ppc64le
+        $mntpoint = "$ppc64le_grub_http/assets/repo/$repo/boot/ppc64le";
+        record_info("Updated boot path for PPC64LE_GRUB_HTTP defined", $mntpoint);
     }
+
+        $self->bootloader_pvm::boot_pvm();
+        $grub_menu->cmd();
+
+        $grub_edition->type("linux $mntpoint/linux");
+        $grub_edition->type("vga=normal");
+        #$grub_edition->type("install=$mirror");
+        $grub_edition->type("console=hvc0");
+        $grub_edition->type("kernel.softlockup_panic=1");
+        $grub_edition->type("Y2DEBUG=1");
+        if(my $extrabootparams = get_var('EXTRABOOTPARAMS')){
+            $grub_edition->type($extrabootparams);
+        }
+        else{
+            $grub_edition->type("live.password=$testapi::password");
+        }
+        my $host = get_var('OPENQA_HOSTNAME', 'openqa.opensuse.org');
+        $grub_edition->type("root=live:http://$host/assets/repo/$iso");
+        $grub_edition->key_return();
+
+        $grub_edition->type("initrd $mntpoint/initrd");
+        $grub_edition->key_return();
+
+        $grub_edition->boot();
+    }else{
+        $grub_menu->edit_current_entry();
+        $grub_edition->move_cursor_to_end_of_kernel_line();
+        $grub_edition->type(\@params);
+    }
+
+    $grub_edition->boot();
+    my $agama_up_an_running = $testapi::distri->get_agama_up_an_running();
+    $agama_up_an_running->expect_is_shown();
 }
 
 1;

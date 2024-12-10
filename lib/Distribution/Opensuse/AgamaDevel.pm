@@ -44,7 +44,7 @@ sub get_grub_menu_installed_system {
     });
 }
 
-sub get_grub_entry_edition {
+sub get_grub_edition {
     return is_ppc64le() ? Yam::Agama::Pom::GrubEntryEditionPage->new({
             max_interval => utils::VERY_SLOW_TYPING_SPEED})
       : Yam::Agama::Pom::GrubEntryEditionPage->new();

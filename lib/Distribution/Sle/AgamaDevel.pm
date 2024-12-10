@@ -17,9 +17,16 @@ use Yam::Agama::Pom::GrubMenuSlesPage;
 use Yam::Agama::Pom::AgamaUpAndRunningBasePage;
 use Yam::Agama::Pom::AgamaUpAndRunningSlePage;
 
+use Utils::Architectures;
+
 sub get_grub_menu_installed_system {
     return Yam::Agama::Pom::GrubMenuSlesPage->new({
             grub_menu_base => Yam::Agama::Pom::GrubMenuBasePage->new()});
+}
+
+sub get_grub_edition {
+    return is_ppc64le() ? Yam::Agama::Pom::GrubCmdPage->new()
+      : Yam::Agama::Pom::GrubEntryEditionPage->new();
 }
 
 sub get_agama_up_an_running {

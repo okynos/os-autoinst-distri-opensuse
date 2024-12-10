@@ -14,6 +14,8 @@ use parent 'Distribution::Opensuse::Leap::16Latest';
 
 use Yam::Agama::Pom::GrubMenuBasePage;
 use Yam::Agama::Pom::GrubMenuSlesPage;
+use Yam::Agama::Pom::GrubEntryEditionPage;
+use Yam::Agama::Pom::GrubCmdPage;
 use Yam::Agama::Pom::AgamaUpAndRunningBasePage;
 use Yam::Agama::Pom::AgamaUpAndRunningSlePage;
 

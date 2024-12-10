@@ -81,8 +81,6 @@ sub run {
 
         $grub_edition->type("initrd $mntpoint/initrd");
         $grub_edition->key_return();
-
-        $grub_edition->boot();
     }else{
         $grub_menu->expect_is_shown();
         $grub_menu->edit_current_entry();

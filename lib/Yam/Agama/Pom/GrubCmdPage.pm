@@ -9,6 +9,7 @@
 package Yam::Agama::Pom::GrubCmdPage;
 use strict;
 use warnings;
+use utils qw(type_string_slow);
 
 use testapi;
 

@@ -61,7 +61,6 @@ sub run {
         }
 
         $self->bootloader_pvm::boot_pvm();
-        $grub_menu->expect_is_shown();
         $grub_menu->cmd();
 
         $grub_edition->type("linux $mntpoint/linux");

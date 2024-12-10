@@ -81,17 +81,19 @@ sub run {
 
         $grub_edition->type("initrd $mntpoint/initrd");
         $grub_edition->send_return_key();
+        $grub_edition->boot();
+        if (!get_var('KEEP_DISKS')){
+            prepare_disks;
+        }
+        select_console('installation');
     }else{
         $grub_menu->expect_is_shown();
         $grub_menu->edit_current_entry();
         $grub_edition->move_cursor_to_end_of_kernel_line();
         $grub_edition->type(\@params);
+        $grub_edition->boot();
     }
 
-    $grub_edition->boot();
-    if (!get_var('KEEP_DISKS')){
-        prepare_disks;
-    }
     my $agama_up_an_running = $testapi::distri->get_agama_up_an_running();
     $agama_up_an_running->expect_is_shown();
 }

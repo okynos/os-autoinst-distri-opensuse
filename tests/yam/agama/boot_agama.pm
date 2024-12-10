@@ -85,7 +85,6 @@ sub run {
         if (!get_var('KEEP_DISKS')){
             prepare_disks;
         }
-        select_console('installation');
     }else{
         $grub_menu->expect_is_shown();
         $grub_menu->edit_current_entry();

@@ -68,7 +68,9 @@ sub add_boot_parameters {
 
 sub boot {
     my ($self) = @_;
-    enter_cmd("boot");
+    #enter_cmd("boot");
+    $self->type("boot");
+    $self->send_return_key();
     prepare_disks;
     script_run("agamactl -s");
 }

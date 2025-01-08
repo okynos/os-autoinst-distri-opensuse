@@ -22,6 +22,7 @@ sub run {
     my $test_options = get_required_var('AGAMA_TEST_OPTIONS');
     my $reboot_page = $testapi::distri->get_reboot();
 
+    sleep(1200);
     script_run("dmesg --console-off");
     assert_script_run("node --enable-source-maps /usr/share/agama/system-tests/" . $test . ".js " .
           $test_options, timeout => 2400);

@@ -27,6 +27,7 @@ use File::Copy 'copy';
 use File::Find qw(finddepth);
 use File::Path 'make_path';
 use LWP::Simple 'head';
+use Mojo::Util 'trim';
 use Socket;
 
 use xml_utils;
@@ -41,6 +42,7 @@ our @EXPORT = qw(
   expand_variables
   adjust_user_password
   upload_profile
+  generate_json_profile
   inject_registration
   init_autoyast_profile
   test_ayp_url
@@ -780,6 +782,52 @@ sub expand_agama_profile {
     save_tmp_file($profile_expanded, $content);
     my $profile_url = autoinst_url . "/files/$profile_expanded";
     upload_profile(path => $profile_expanded, profile => $content);
+    return $profile_url;
+}
+
+=head2 workaround_install_jsonnet
+
+ workaround_install_jsonnet();
+
+ Workaround Install via zypper golang-github-google-jsonnet package in the worker.
+ We need this meanwhile the package is built for all other architectures (s390x/aarch64/ppc64le).
+ After that it should be in the Salt repository.
+
+=cut
+
+sub workaround_install_jsonnet {
+    if (system("sudo", "zypper", "-n", "repos", "systemsmanagement_Agama_Devel") != 0) {
+        system("sudo", "zypper", "-n", "addrepo", "-f", "-G",
+            "https://download.opensuse.org/repositories/systemsmanagement:Agama:Devel/15.6/systemsmanagement:Agama:Devel.repo");
+    }
+
+    if (system("which", "jsonnet") != 0) {
+        system("sudo", "zypper", "-n", "install", "-f", "golang-github-google-jsonnet");
+    }
+}
+
+=head2 generate_json_profile
+
+ generate_json_profile();
+
+ Return the URL of generated JSON profile
+
+=cut
+
+sub generate_json_profile {
+    my $profile_name = "generated_profile.json";
+    my $casedir = get_required_var('CASEDIR');
+
+    workaround_install_jsonnet();
+    my @profile_options = map { " --tla-" . (/true|false/ ? "code" : "str") . " $_" }
+      split(' ', trim(get_var('AGAMA_PROFILE_OPTIONS')));
+    print "jsonnet @profile_options $casedir/data/yam/agama/auto/template.jsonnet";
+    my $profile_content = `jsonnet @profile_options $casedir/data/yam/agama/auto/template.jsonnet`;
+    record_info("Profile", $profile_content);
+
+    save_tmp_file($profile_name, $profile_content);
+    my $profile_url = autoinst_url . "/files/$profile_name";
+    upload_profile(path => $profile_name, profile => $profile_content);
     return $profile_url;
 }
 

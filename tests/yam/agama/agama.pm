@@ -35,6 +35,7 @@ sub run {
     my $reporters = "--test-reporter=spec --test-reporter=tap --test-reporter-destination=/tmp/$spec --test-reporter-destination=/tmp/$tap";
     my $node_cmd = "node --enable-source-maps $reporters /usr/share/agama/system-tests/${test}.js $test_options";
 
+    sleep(1200);
     script_run("dmesg --console-off");
     record_info("node cmd", $node_cmd);
     my $ret = script_run($node_cmd, timeout => 2400);

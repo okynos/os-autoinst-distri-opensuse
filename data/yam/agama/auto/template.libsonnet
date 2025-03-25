@@ -15,6 +15,9 @@ function(bootloader=false, user=true, root=true, storage='', product='', registr
     [if scripts_post != '' then 'post']: [ scripts_post_lib[x] for x in std.split(scripts_post, ',') ],
     [if scripts_pre != '' then 'pre']: [ scripts_pre_lib[x] for x in std.split(scripts_pre, ',') ],
   },
-  [if storage != '' then 'storage']: storage_lib(storage, encrypted),
+  [if storage == 'lvm' then 'storage']: storage_lib['lvm'],
+  [if storage == 'lvm_encrypted' then 'storage']: storage_lib['lvm_encrypted'],
+  [if storage == 'root_filesystem_ext4' then 'storage']: storage_lib['root_filesystem_ext4'],
+  [if storage == 'root_filesystem_xfs' then 'storage']: storage_lib['root_filesystem_xfs'],
   [if user == true then 'user']: base_lib['user'],
 }

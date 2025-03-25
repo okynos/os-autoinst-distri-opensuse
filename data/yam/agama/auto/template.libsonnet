@@ -5,7 +5,10 @@ local storage_lib = import 'lib/storage.libsonnet';
 local addons_lib = import 'lib/addons.libsonnet';
 
 function(bootloader=false, user=true, root=true, storage='', product='', registration_code='', scripts_pre='',
-  scripts_post='', addons='', code='') {
+  scripts_post='', addons='', addons_registration_codes='')
+  local addons_list = std.split(addons, ',');
+  local addons_registration_codes_list = std.split(addons_registration_codes, ',');
+  {
   [if bootloader == true then 'bootloader']: base_lib['bootloader'],
   [if product != '' then 'product']: {
     id: product,
@@ -17,7 +20,8 @@ function(bootloader=false, user=true, root=true, storage='', product='', registr
     [if scripts_pre != '' then 'pre']: [ scripts_pre_lib[x] for x in std.split(scripts_pre, ',') ],
   },
 
-  [if addons != '' then 'addons']: [ addons_lib[x] for x in std.split(addons, ',') ],
+  [if addons != '' then 'addons']: [ addons_lib[addons_list[i]](addons_registration_codes_list[i]) 
+    for i in std.range(0, std.length(addons_list)-1)],
 
   [if storage == 'lvm' then 'storage']: storage_lib['lvm'],
   [if storage == 'lvm_encrypted' then 'storage']: storage_lib['lvm_encrypted'],

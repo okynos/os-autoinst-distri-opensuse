@@ -13,7 +13,8 @@ function(addon_ha_reg_code='',
          product='',
          registration_code='',
          scripts_pre='',
-         scripts_post='') {
+         scripts_post='',
+         set_hostname=false) {
   [if bootloader == true then 'bootloader']: base_lib['bootloader'],
   [if patterns != '' then 'software']: {
     patterns: [patterns]
@@ -26,6 +27,7 @@ function(addon_ha_reg_code='',
     [if registration_code != '' then 'registrationCode']: registration_code,
   },
   [if root == true then 'root']: base_lib['root'],
+  [if set_hostname == true then 'hostname']: base_lib['hostname'],
   [if scripts_pre != '' || scripts_post != '' then 'scripts']: {
     [if scripts_post != '' then 'post']: [ scripts_post_lib[x] for x in std.split(scripts_post, ',') ],
     [if scripts_pre != '' then 'pre']: [ scripts_pre_lib[x] for x in std.split(scripts_pre, ',') ],

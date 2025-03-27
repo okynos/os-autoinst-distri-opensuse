@@ -1,11 +1,10 @@
 ---
 name: agama_extended
 description: >
-  Perform interactive installation with agama setting a custom hostname.
+  Perform unattended installation with agama setting a custom hostname.
 schedule:
   - yam/agama/boot_agama
-  - yam/agama/patch_agama_tests
-  - yam/agama/agama
+  - yam/agama/agama_auto
   - installation/grub_test
   - installation/first_boot
   - yam/validate/validate_hostname

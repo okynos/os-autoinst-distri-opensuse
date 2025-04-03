@@ -905,7 +905,12 @@ sub specific_bootmenu_params {
         if (get_var('SPLIT_REPODATA')) {
             $agama_install_url .= "/\\\$basearch";
         }
-        push @params, "inst.install_url=$agama_install_url";
+
+        my $install_url_line = "inst.install_url=$agama_install_url";
+        if (is_backend_s390x() && length($install_url_line) > 72) { # 72 is the max allowed chars per line in s390x-zVM
+            $install_url_line = "inst.install_url=" . shorten_url($agama_install_url);
+        }
+        push @params, $install_url_line;
     }
 
     # Boot the system with the debug options if shutdown takes suspiciously long time.

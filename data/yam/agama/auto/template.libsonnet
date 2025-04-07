@@ -10,13 +10,15 @@ function(addon_ha_reg_code='',
          root=true,
          storage='',
          patterns='',
+         packages='',
          product='',
          registration_code='',
          scripts_pre='',
          scripts_post='') {
   [if bootloader == true then 'bootloader']: base_lib['bootloader'],
-  [if patterns != '' then 'software']: {
-    patterns: [patterns]
+  [if patterns != '' || packages != '' then 'software']: {
+    [if patterns != '' then 'patterns']: [patterns],
+    [if packages != '' then 'packages']: std.split(packages, ','),
   },
   [if product != '' then 'product']: {
     [if addon_ha_reg_code != '' then 'addons']: std.prune([

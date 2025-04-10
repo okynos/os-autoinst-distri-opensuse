@@ -1,0 +1,14 @@
+---
+name: agama_gnome_unattended
+description: >
+  Perform unattended installation with Agama Gnome and Wayland pattern.
+schedule:
+  - yam/agama/boot_agama
+  - yam/agama/agama_auto
+  - installation/grub_test
+  - yam/agama/switch_to_product
+  - installation/first_boot
+  - installation/opensuse_welcome
+  - console/system_prepare
+  - yam/validate/validate_product
+  - yam/validate/validate_first_user

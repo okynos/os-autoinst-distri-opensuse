@@ -149,6 +149,7 @@ sub load_host_tests_podman {
     unless (is_openstack || is_public_cloud) {
         loadtest 'containers/rootless_podman';
         loadtest 'containers/podman_remote' if is_sle_micro('5.5+');
+        loadtest 'containers/podmansh' unless (is_staging || is_leap("<16") || is_sle("<16") || is_sle_micro("<6.1") || is_leap_micro("<6.1"));
     }
     # Buildah is not available in SLE Micro, MicroOS and staging projects
     load_buildah_tests($run_args) unless (is_sle('<15') || is_sle_micro || is_microos || is_leap_micro || is_staging);
@@ -314,26 +315,26 @@ sub load_container_tests {
 
     if (get_var('SKOPEO_BATS_SKIP') || get_var('RUNC_BATS_SKIP') || get_var('NETAVARK_BATS_SKIP')) {
         if (!check_var('SKOPEO_BATS_SKIP', 'all')) {
-            loadtest 'containers/skopeo_integration' if (is_tumbleweed || is_microos || is_sle || is_leap || is_sle_micro('>=5.5'));
+            loadtest 'containers/bats/skopeo' if (is_tumbleweed || is_microos || is_sle || is_leap || is_sle_micro('>=5.5'));
         }
         if (!check_var('RUNC_BATS_SKIP', 'all')) {
-            loadtest 'containers/runc_integration' if (is_tumbleweed || is_sle || is_leap);
+            loadtest 'containers/bats/runc' if (is_tumbleweed || is_sle || is_leap);
         }
         if (!check_var('NETAVARK_BATS_SKIP', 'all')) {
-            loadtest 'containers/netavark_integration' if (is_tumbleweed || is_sle('>15-SP4') || is_leap);
+            loadtest 'containers/bats/netavark' if (is_tumbleweed || is_sle('>15-SP4') || is_leap);
         }
         return;
     }
 
     if (get_var('PODMAN_BATS_SKIP')) {
         if (!check_var('PODMAN_BATS_SKIP', 'all')) {
-            loadtest 'containers/podman_integration';
+            loadtest 'containers/bats/podman';
         }
         return;
     }
 
     if (get_var('BUILDAH_BATS_SKIP')) {
-        loadtest 'containers/buildah_integration';
+        loadtest 'containers/bats/buildah';
         return;
     }
 

@@ -44,10 +44,21 @@ sub run_tests {
     my $env = join " ", map { "$_=$_env{$_}" } sort keys %_env;
 
     assert_script_run "echo $log_file .. > $log_file";
-    my $ret = script_run "env $env bats --tap systemtest | tee -a $log_file", 1200;
 
-    my @skip_tests = split(/\s+/, get_var('SKOPEO_BATS_SKIP', '') . " " . $skip_tests);
-    patch_logfile($log_file, @skip_tests);
+    my @tests;
+    foreach my $test (split(/\s+/, get_var("SKOPEO_BATS_TESTS", ""))) {
+        $test .= ".bats" unless $test =~ /\.bats$/;
+        push @tests, "systemtest/$test";
+    }
+    my $tests = @tests ? join(" ", @tests) : "systemtest";
+
+    my $ret = script_run "env $env bats --tap $tests | tee -a $log_file", 1200;
+
+    unless (@tests) {
+        my @skip_tests = split(/\s+/, get_var('SKOPEO_BATS_SKIP', '') . " " . $skip_tests);
+        patch_logfile($log_file, @skip_tests);
+    }
+
     parse_extra_log(TAP => $log_file);
 
     script_run "rm -rf $tmp_dir";
@@ -63,7 +74,8 @@ sub run {
     enable_modules if is_sle;
 
     # Install tests dependencies
-    my @pkgs = qw(apache2-utils fakeroot jq openssl podman squashfs skopeo);
+    my @pkgs = qw(apache2-utils jq openssl podman squashfs skopeo);
+    push @pkgs, "fakeroot" unless is_sle('>=16.0');
     install_packages(@pkgs);
 
     $self->bats_setup;

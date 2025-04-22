@@ -13,6 +13,7 @@ use testapi;
 use Test::Assert ':assert';
 
 sub run {
+    diag($testapi::password);
     select_console 'root-console';
     my $expected_prod = get_required_var("AGAMA_PRODUCT_ID");
     my $prod = script_output 'basename `readlink /etc/products.d/baseproduct ` .prod';

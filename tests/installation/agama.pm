@@ -80,7 +80,7 @@ sub agama_define_user_screen {
 
 sub upload_agama_logs {
     return if (get_var('NOLOGS'));
-    select_console("root-console");
+    select_console("install-shell");
     # stores logs in /tmp/agma-logs.tar.gz
     script_run('agama logs store');
     upload_logs('/tmp/agama-logs.tar.gz');
@@ -207,7 +207,7 @@ sub post_fail_hook {
 
     return if (get_var('NOLOGS'));
 
-    select_console("root-console");
+    select_console("install-shell");
     export_healthcheck_basic();
     upload_agama_logs();
 }

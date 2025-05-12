@@ -1,4 +1,11 @@
 {
+  disable_popups: {
+    name: 'disable popups',
+    content: |||
+      #!/usr/bin/env bash
+      agama questions mode non-interactive
+    |||
+  },
   activate_multipath: {
     name: 'activate multipath',
     content: |||

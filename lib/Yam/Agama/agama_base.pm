@@ -17,8 +17,6 @@ sub post_fail_hook {
 }
 
 sub upload_agama_logs {
-    select_console 'install-shell';
-
     if (script_run("test -d /run/agama/scripts") == 0) {
         script_run("tar czvf /tmp/agama_scripts.tar.gz /run/agama/scripts/*", {timeout => 60});
         upload_logs("/tmp/agama_scripts.tar.gz", failok => 1);

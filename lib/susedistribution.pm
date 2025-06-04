@@ -692,6 +692,14 @@ sub init_consoles {
                 username => 'root'
             });
         $self->add_console(
+            'agama-root-console',
+            'ssh-xterm',
+            {
+                hostname => $hostname,
+                password => $testapi::password,
+                username => 'root'
+            });
+        $self->add_console(
             'user-console',
             'ssh-xterm',
             {

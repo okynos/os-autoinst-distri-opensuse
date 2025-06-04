@@ -993,7 +993,7 @@ configure a timeout value different than default.
 
 sub console_selected {
     my ($self, $console, %args) = @_;
-    if ((exists $testapi::testapi_console_proxies{'root-ssh'}) && $console =~ m/^(root-console|install-shell|log-console)$/) {
+    if ((exists $testapi::testapi_console_proxies{'root-ssh'}) && $console =~ m/^(root-console|agama-root-console|install-shell|log-console)$/) {
         $console = 'root-ssh';
         my $ret = query_isotovideo('backend_select_console', {testapi_console => $console});
         die $ret->{error} if $ret->{error};

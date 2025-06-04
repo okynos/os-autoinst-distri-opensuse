@@ -488,6 +488,7 @@ sub init_consoles {
         $self->add_console('install-shell2', 'tty-console', {tty => 9});
         # On SLE15 X is running on tty2 see bsc#1054782
         $self->add_console('root-console', 'tty-console', {tty => get_root_console_tty});
+        $self->add_console('agama-root-console', 'tty-console', {tty => 8});
         $self->add_console('user-console', 'tty-console', {tty => 4});
         $self->add_console('log-console', 'tty-console', {tty => 5});
         $self->add_console('displaymanager', 'tty-console', {tty => 7});

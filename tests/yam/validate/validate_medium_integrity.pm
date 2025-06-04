@@ -12,7 +12,7 @@ use warnings;
 use testapi;
 
 sub run {
-    select_console 'root-console';
+    select_console 'agama-root-console';
     assert_script_run("journalctl -b | grep \"Finished Installation medium integrity check.\"", timeout => 60);
 }
 

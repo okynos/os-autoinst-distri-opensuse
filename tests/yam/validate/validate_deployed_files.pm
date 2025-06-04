@@ -14,7 +14,7 @@ use warnings;
 use testapi;
 
 sub run {
-    select_console 'root-console';
+    select_console 'agama-root-console';
     # see tag <files> in data/yam/agama/auto/autoyast_supported.xml
     my %files = (
         '/usr/local/share/dummy.xml' => {

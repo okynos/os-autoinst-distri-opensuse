@@ -13,7 +13,7 @@ use testapi qw(select_console);
 use services::apparmor;
 
 sub run {
-    select_console 'root-console';
+    select_console 'agama-root-console';
 
     services::apparmor::check_service();
     services::apparmor::check_aa_status();

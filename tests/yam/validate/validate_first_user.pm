@@ -12,7 +12,7 @@ use warnings;
 use testapi;
 
 sub run {
-    select_console 'user-console';
+    select_console 'agama-user-console';
 }
 
 1;

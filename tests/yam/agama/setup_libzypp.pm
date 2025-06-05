@@ -4,12 +4,14 @@
 # Summary: Include defined parameters to Zypper configuration in Agama live ISO
 # Maintainer: QE YaST and Migration (QE Yam) <qe-yam at suse de>
 
-use base Yam::Agama::patch_agama_base;
 use strict;
 use warnings;
-use testapi qw(assert_script_run get_required_var select_console);
+use testapi
+use scheduler 'get_test_suite_data';
 
 sub run {
+    my $test_data = get_test_suite_data();
+
     select_console 'root-console';
 
     foreach my $param (@{$test_data->{zypper_parameters}}) {

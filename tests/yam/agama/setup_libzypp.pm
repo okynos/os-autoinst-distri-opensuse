@@ -6,7 +6,8 @@
 
 use strict;
 use warnings;
-use testapi
+use base "consoletest";
+use testapi;
 use scheduler 'get_test_suite_data';
 
 sub run {
@@ -15,7 +16,7 @@ sub run {
     select_console 'root-console';
 
     foreach my $param (@{$test_data->{zypper_parameters}}) {
-        script_run("echo $param > /etc/zypp/zypp.conf");
+        script_run("echo $param >> /etc/zypp/zypp.conf");
     }
     assert_script_run("zypper refresh", timeout => 60);
 }

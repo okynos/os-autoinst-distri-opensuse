@@ -1,0 +1,4 @@
+---
+os_release_name: SLES
+zypper_parameters:
+  - 'techpreview.ZYPP_SINGLE_RPMTRANS=1'

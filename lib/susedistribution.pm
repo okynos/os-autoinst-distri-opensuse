@@ -849,7 +849,7 @@ sub activate_console {
     my ($self, $console, %args) = @_;
 
     # Select configure serial and redirect to root-ssh instead
-    return use_ssh_serial_console if (get_var('BACKEND', '') =~ /ikvm|ipmi|spvm|pvm_hmc/ && $console =~ m/^(root-console|install-shell|log-console)$/);
+    return use_ssh_serial_console if (get_var('BACKEND', '') =~ /ikvm|ipmi|spvm|pvm_hmc/ && $console =~ m/^(root-console|agama-root-console|install-shell|log-console)$/);
     if ($console eq 'install-shell') {
         # Agama behaves similarly as LIVE but we set a fixed password there
         if (get_var("LIVECD") && !get_var('AGAMA')) {

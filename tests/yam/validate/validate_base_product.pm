@@ -13,7 +13,7 @@ use testapi;
 use Test::Assert ':assert';
 
 sub run {
-    select_console 'agama-root-console';
+    select_console 'root-console';
     my $expected_prod = get_required_var("AGAMA_PRODUCT_ID");
     my $prod = script_output 'basename `readlink /etc/products.d/baseproduct ` .prod';
     assert_equals($expected_prod, $prod, "Wrong product name in '/etc/products.d/baseproduct'");

@@ -13,7 +13,7 @@ use utils 'zypper_call';
 use testapi;
 
 sub run {
-    select_console 'agama-root-console';
+    select_console 'root-console';
 
     my @addon_list = split(/,/, get_var('ADDONS'));
 

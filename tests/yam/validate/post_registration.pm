@@ -10,7 +10,7 @@ use warnings;
 use testapi;
 
 sub run {
-    select_console 'agama-root-console';
+    select_console 'root-console';
     assert_script_run "SUSEConnect -s | grep 'Not Registered'";
     assert_script_run "SUSEConnect --status-text";
     assert_script_run "SUSEConnect -r " . get_var('SCC_REGCODE') . " --url " . get_var('SCC_URL'), 180;

@@ -15,7 +15,7 @@ use testapi;
 use utils;
 
 sub run {
-    select_console 'agama-root-console';
+    select_console 'root-console';
     zypper_call("in tpm2.0-tools");
     assert_script_run("fdectl tpm-present");
 }

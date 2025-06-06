@@ -15,7 +15,7 @@ use utils 'zypper_call';
 use testapi;
 
 sub run {
-    select_console 'agama-root-console';
+    select_console 'root-console';
 
     my @pattern_list = split(/,/, get_var('PATTERNS'));
 

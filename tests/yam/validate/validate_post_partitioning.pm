@@ -14,7 +14,7 @@ use testapi;
 use utils;
 
 sub run {
-    select_console 'agama-root-console';
+    select_console 'root-console';
     assert_script_run("ls /etc/zypp/zypp.conf.rpmnew");
 }
 

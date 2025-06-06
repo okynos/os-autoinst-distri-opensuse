@@ -15,7 +15,7 @@ use warnings;
 use testapi;
 
 sub run {
-    select_console 'agama-root-console';
+    select_console 'root-console';
     # See https://build.opensuse.org/package/show/home:lslezak:dud-test/hello-world
     validate_script_output("hello-world.sh", qr/Hello world!/);
 }

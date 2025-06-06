@@ -12,7 +12,7 @@ use warnings;
 use testapi;
 
 sub run {
-    select_console 'agama-root-console';
+    select_console 'root-console';
 
     my @packages_list = split(/,/, get_var('PACKAGES'));
     my %packages = map { $_ => {installed => 1} } @packages_list;

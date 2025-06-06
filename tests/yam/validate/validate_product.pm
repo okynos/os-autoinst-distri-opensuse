@@ -15,7 +15,7 @@ use Test::Assert ':all';
 use scheduler 'get_test_suite_data';
 
 sub run {
-    select_console 'agama-root-console';
+    select_console 'root-console';
 
     my $os_release_name_expected = get_test_suite_data()->{os_release_name};
 

@@ -10,7 +10,7 @@ use strict;
 use warnings;
 use testapi;
 use Utils::Logging 'save_and_upload_log';
-use Utils::Architectures qw(is_s390x is_ppc64le);
+use Utils::Architectures qw(is_s390x);
 use Utils::Backends qw(is_svirt);
 
 sub post_fail_hook {

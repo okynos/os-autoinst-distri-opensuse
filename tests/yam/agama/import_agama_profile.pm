@@ -18,7 +18,7 @@ sub run {
       generate_json_profile($profile) :
       expand_agama_profile($profile);
 
-    select_console 'agama-root-console' unless is_s390x() && is_svirt();
+    select_console 'agama-root-console'
     assert_script_run("agama profile import $profile_url", timeout => 300);
 }
 

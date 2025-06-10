@@ -15,7 +15,7 @@ use Utils::Backends qw(is_svirt);
 
 sub post_fail_hook {
     my ($self) = @_;
-    select_console 'agama-console' unless is_s390x() && is_svirt();
+    select_console 'agama-console';
     y2_base::save_upload_y2logs($self, skip_logs_investigation => 1);
 }
 

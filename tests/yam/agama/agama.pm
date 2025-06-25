@@ -42,7 +42,8 @@ sub run {
     my $node_cmd = "node --enable-source-maps $reporters /usr/share/agama/system-tests/${test}.js $test_options";
 
     record_info("node cmd", $node_cmd);
-    my $ret = script_run($node_cmd, timeout => 2400);
+    my $ret = script_run($node_cmd, timeout => 60);
+    my $monitor_output = script_run("agama monitor", timeout => 2400);
 
     # see https://github.com/os-autoinst/openQA/blob/master/lib/OpenQA/Parser/Format/TAP.pm#L36
     assert_script_run("sed -i 's/TAP version 13/$tap ../' /tmp/$tap");
@@ -62,11 +63,11 @@ sub run {
         my $svirt = console('svirt')->change_domain_element(os => boot => {dev => 'hd'});
     }
 
-    (is_s390x() || is_ppc64le() || is_headless_installation()) ?
+
+    $monitor_output =~ /\[3\/3\]\sConfigure\sthe\ssystem/ms ?
       # reboot via console
       power_action('reboot', keepconsole => 1, first_reboot => 1) :
-      # graphical reboot
-      $reboot_page->reboot();
+      die "The installation did not finished"
 }
 
 1;

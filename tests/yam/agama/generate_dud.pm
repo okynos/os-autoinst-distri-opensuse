@@ -14,11 +14,11 @@ use autoyast qw(expand_agama_profile generate_json_profile);
 sub run {
     my $self = shift;
     my $dud = get_required_var('DUD');
-    my $profile = get_required_var('AGAMA_PROFILE');
-    my $profile_url = ($profile =~ /\.libsonnet/) ?
-      generate_json_profile($profile) :
-      expand_agama_profile($profile);
-
+    my $inst_auto = get_required_var('INST_AUTO')
+    my $profile_url = ($inst_auto =~ /\.libsonnet/) ?
+      generate_json_profile($inst_auto) :
+      expand_agama_profile($inst_auto);
+    set_var('INST_AUTO', $profile_url);
 
     select_console 'install-shell';
 

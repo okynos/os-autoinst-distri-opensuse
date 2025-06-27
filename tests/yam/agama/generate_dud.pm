@@ -25,7 +25,7 @@ sub run {
     zypper_call("ar -f -G https://download.opensuse.org/repositories/home:/snwint:/ports/SLFO-Main/home:snwint:ports.repo");
     zypper_call("in -y mkdud");
     assert_script_run("mkdir -p tmp/dud/root");
-    assert_script_run("curl -o tmp/dud/root $profile_url");
+    assert_script_run("curl -o tmp/dud/root/autoinst.json $profile_url");
     assert_script_run("mkdud --create $dud tmp/dud/root --dist tw");
     upload_asset($dud);
 }

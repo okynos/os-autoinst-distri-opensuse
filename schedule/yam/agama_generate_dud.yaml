@@ -1,0 +1,7 @@
+---
+name: agama_generate_dud
+description: >
+  Generate DUD file for later Agama unattended installation.
+schedule:
+  - yam/agama/boot_agama
+  - yam/agama/generate_dud

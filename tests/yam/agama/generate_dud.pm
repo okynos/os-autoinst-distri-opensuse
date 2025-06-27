@@ -9,6 +9,7 @@ use base Yam::Agama::agama_base;
 use strict;
 use warnings;
 use testapi;
+use utils;
 use autoyast qw(expand_agama_profile generate_json_profile);
 
 sub run {

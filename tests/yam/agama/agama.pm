@@ -43,7 +43,10 @@ sub run {
 
     record_info("node cmd", $node_cmd);
     my $ret = script_run($node_cmd, timeout => 60);
-    my $monitor_output = script_run("agama monitor", timeout => 2400);
+    my $monitor_output;
+    eval {
+      $monitor_output = script_output("agama monitor", timeout => 2400);
+    };
 
     # see https://github.com/os-autoinst/openQA/blob/master/lib/OpenQA/Parser/Format/TAP.pm#L36
     assert_script_run("sed -i 's/TAP version 13/$tap ../' /tmp/$tap");

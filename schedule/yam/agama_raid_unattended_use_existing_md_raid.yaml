@@ -9,5 +9,4 @@ schedule:
   - installation/first_boot
   - console/validate_md_raid
   - console/validate_raid
-  - yam/validate/modify_raid_swap
   - yam/validate/validate_raid_swap

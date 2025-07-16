@@ -8,6 +8,7 @@
 use base "installbasetest";
 use strict;
 use warnings;
+use testapi;
 
 sub run {
     my $grub_menu = $testapi::distri->get_grub_menu_agama();

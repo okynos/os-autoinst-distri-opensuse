@@ -14,6 +14,7 @@ sub run {
 
     $grub_menu->expect_is_shown();
     $grub_menu->boot_from_hd();
+    $grub_menu->boot_first_entry() if (check_var('BOOTFROM', 'd'));
 }
 
 1;

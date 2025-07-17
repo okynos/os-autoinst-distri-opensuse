@@ -188,12 +188,10 @@ local search_raid0() = {
       partitions: [
         {
           search: '/dev/md/0p1',
-          delete: false,
           filesystem: { path: '/boot/efi', type: 'vfat' },
         },
         {
           search: '/dev/md/0p2',
-          delete: false,
           filesystem: { path: '/' },
         },
       ],
@@ -202,7 +200,6 @@ local search_raid0() = {
       partitions: [
         {
           search: '/dev/md/1p1',
-          delete: false,
           filesystem: { path: 'swap' },
         },
       ],

@@ -186,6 +186,7 @@ local search_raid0() = {
   mdRaids: [
     {
       search: '/dev/md0',
+      delete: true,
       partitions: [
         {
           filesystem: { path: '/boot/efi', type: 'vfat' },
@@ -194,12 +195,12 @@ local search_raid0() = {
         {
           filesystem: { path: '/' },
           size: '6 GiB',
-          delete: true
         },
       ],
     },
     {
       search: '/dev/md1',
+      delete: true,
       partitions: [
         {
           filesystem: { path: 'swap' },

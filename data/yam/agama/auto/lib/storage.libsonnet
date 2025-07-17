@@ -182,12 +182,40 @@ local raid(level='raid0', uefi=false) = {
     },
   ],
 };
+local search_raid0() = {
+  drives: [
+    {
+      partitions: [
+        {
+          search: '/dev/md/0p1',
+          delete: false,
+          filesystem: { path: '/boot/efi', type: 'vfat' },
+        },
+        {
+          search: '/dev/md/0p2',
+          delete: false,
+          filesystem: { path: '/' },
+        },
+      ],
+    },
+    {
+      partitions: [
+        {
+          search: '/dev/md/1p1',
+          delete: false,
+          filesystem: { path: 'swap' },
+        },
+      ],
+    },
+  ],
+};
 {
   lvm: lvm(false),
   lvm_encrypted: lvm(true),
   lvm_tpm_fde: lvm(true, 'tpmFde'),
   raid0: raid('raid0'),
   raid0_uefi: raid('raid0', true),
+  raid0_uefi_search: search_raid0(),
   resize: resize(),
   root_filesystem_ext4: root_filesystem('ext4'),
   root_filesystem_xfs: root_filesystem('xfs'),

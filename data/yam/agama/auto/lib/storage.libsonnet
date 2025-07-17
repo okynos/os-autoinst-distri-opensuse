@@ -183,7 +183,7 @@ local raid(level='raid0', uefi=false) = {
   ],
 };
 local search_raid0() = {
-  drives: [
+  mdRaids: [
     {
       search: '/dev/md0',
       partitions: [

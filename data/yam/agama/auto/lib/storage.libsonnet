@@ -193,7 +193,8 @@ local search_raid0() = {
         },
         {
           filesystem: { path: '/' },
-          size: '6 GiB'
+          size: '6 GiB',
+          delete: true
         },
       ],
     },

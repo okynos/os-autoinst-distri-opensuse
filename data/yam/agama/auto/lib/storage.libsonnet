@@ -185,21 +185,22 @@ local raid(level='raid0', uefi=false) = {
 local search_raid0() = {
   drives: [
     {
+      search: '/dev/md/0',
       partitions: [
         {
-          search: '/dev/md/0p1',
           filesystem: { path: '/boot/efi', type: 'vfat' },
+          size: '128 MiB'
         },
         {
-          search: '/dev/md/0p2',
           filesystem: { path: '/' },
+          size: '6 GiB'
         },
       ],
     },
     {
+      search: '/dev/md/1',
       partitions: [
         {
-          search: '/dev/md/1p1',
           filesystem: { path: 'swap' },
         },
       ],

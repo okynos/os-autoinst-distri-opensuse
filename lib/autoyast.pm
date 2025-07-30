@@ -815,6 +815,25 @@ sub generate_json_profile {
     return $profile_url;
 }
 
+=head2 validate_json_profile
+
+ validate_json_profile();
+
+ Validate the presence of JSON at given URL
+
+=cut
+
+sub validate_json_profile {
+    my ($profile_url) = @_;
+    my $profile_name = "validated_profile.json";
+
+    diag $profile_url;
+    assert_script_run("curl -o /tmp/$profile_name $profile_url");
+    my $profile_content = script_output("cat /tmp/$profile_name");
+    #die "Error generating jsonnet profile" if ($? != 0);
+    record_info("Validation", $profile_content);
+}
+
 =head2 upload_profile
 
  upload_profile(profile => $profile, path => $path)

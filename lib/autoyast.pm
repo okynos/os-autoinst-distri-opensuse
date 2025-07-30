@@ -44,6 +44,7 @@ our @EXPORT = qw(
   adjust_user_password
   upload_profile
   generate_json_profile
+  validate_json_profile
   inject_registration
   init_autoyast_profile
   test_ayp_url

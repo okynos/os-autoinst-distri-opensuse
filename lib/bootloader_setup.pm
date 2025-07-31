@@ -904,6 +904,7 @@ sub specific_bootmenu_params {
         my $url = ($inst_auto =~ /\.libsonnet/) ? autoyast::generate_json_profile($inst_auto) : autoyast::expand_agama_profile($inst_auto);
         $url = shorten_url($url) if (is_backend_s390x && !is_opensuse);
         push @params, "inst.auto=$url inst.finish=stop";
+        set_var('INST_AUTO', $url);
     }
 
     if (my $agama_install_url = get_var('INST_INSTALL_URL')) {

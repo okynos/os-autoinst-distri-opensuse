@@ -10,7 +10,7 @@ use strict;
 use warnings;
 
 use testapi;
-use autoyast qw(create_file_as_profile_companion expand_agama_profile generate_json_profile validate_json_profile);
+use autoyast qw(create_file_as_profile_companion expand_agama_profile generate_json_profile);
 use Utils::Architectures;
 use Utils::Backends;
 use Mojo::Util 'trim';
@@ -46,8 +46,6 @@ sub prepare_boot_params {
           expand_agama_profile($inst_auto);
         set_var('INST_AUTO', $profile_url);
         push @params, "inst.auto=\"$profile_url\"", "inst.finish=stop";
-
-        validate_json_profile($profile_url);
     }
     push @params, 'inst.register_url=' . get_var('SCC_URL') if get_var('SCC_URL') && get_var('FLAVOR') =~ /^(Online.*|agama-installer)$/;
 

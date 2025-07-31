@@ -8,7 +8,6 @@ use base Yam::Agama::patch_agama_base;
 use strict;
 use warnings;
 use testapi;
-use autoyast qw(validate_json_profile);
 
 sub set_agama_version {
     my $info_file = script_output("cat /var/log/build/info");
@@ -21,7 +20,6 @@ sub set_agama_version {
 sub run {
     select_console 'install-shell';
     set_agama_version();
-    validate_json_profile(get_var('INST_AUTO'));
 }
 
 1;

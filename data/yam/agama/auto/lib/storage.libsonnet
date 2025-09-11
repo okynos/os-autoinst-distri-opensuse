@@ -124,7 +124,7 @@ local raid(level='raid0', boot_type='bios') = {
         { delete: true, search: '*' },
         {
           id: 'esp',
-          size: '128 MiB',
+          size: '300 MiB',
           filesystem: { path: '/boot/efi', type: 'vfat' },
         },
         mdroot_partition,
@@ -138,7 +138,7 @@ local raid(level='raid0', boot_type='bios') = {
         { delete: true, search: '*' },
         {
           id: 'esp',
-          size: '128 MiB',
+          size: '300 MiB',
           filesystem: { type: 'vfat' },
         },
         mdroot_partition,
@@ -205,7 +205,7 @@ local search_raid0() = {
       partitions: [
         {
           id: 'esp',
-          size: '128 MiB',
+          size: '300 MiB',
           filesystem: {
             path: '/boot/efi',
             type: 'vfat'

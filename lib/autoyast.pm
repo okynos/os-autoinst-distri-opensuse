@@ -1084,7 +1084,7 @@ sub parse_dud_parameter {
 =cut
 
 sub read_iso_info {
-    my $iso = 'SLES-16.0-Online-' . get_var('ARCH') . '-Build' . get_var('BUILD_SLE') . '.install.iso';
+    my $iso = 'SLES-16.0-Online-' . get_var('ARCH') . '-Build' . get_var('BUILD') . '.install.iso';
     my $iso_info = `isoinfo -j UTF-8 -R -x /LiveOS/.info -i $iso`;
     die "Error getting info from ISO image" if ($? != 0);
     record_info("iso info", $iso_info);

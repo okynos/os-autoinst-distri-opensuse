@@ -1073,4 +1073,21 @@ sub parse_dud_parameter {
     return $dud;
 }
 
+=head2 read_iso_info
+
+ read_iso_info();
+
+ Read info file from Agama Live ISO
+ Return a string of info file content
+
+=cut
+
+sub read_iso_info {
+    my $iso = 'SLES-16.0-Online-' . get_var('ARCH') . '-Build' . get_var('BUILD') . '.install.iso';
+    my $iso_info = `isoinfo -j UTF-8 -R -x /LiveOS/.info -i $iso`;
+    die "Error getting info from ISO image" if ($? != 0);
+    record_info("iso info", $iso_info);
+    return $iso_info;
+}
+
 1;

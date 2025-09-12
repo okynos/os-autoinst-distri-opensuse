@@ -8,7 +8,7 @@
 use base "installbasetest";
 
 use testapi;
-use autoyast qw(create_file_as_profile_companion expand_agama_profile generate_json_profile parse_dud_parameter);
+use autoyast qw(create_file_as_profile_companion expand_agama_profile generate_json_profile parse_dud_parameter read_iso_info);
 use Utils::Architectures;
 use Utils::Backends;
 use Mojo::Util 'trim';
@@ -63,6 +63,8 @@ sub prepare_boot_params {
 
 sub run {
     my $self = shift;
+
+    read_iso_info();
 
     # Please, avoid adding code here that would be a dependency for specific booting implementations
     # For now using legacy code to handle remote architectures

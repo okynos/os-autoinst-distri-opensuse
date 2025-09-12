@@ -53,6 +53,7 @@ our @EXPORT = qw(
   prepare_ay_file
   generate_xml
   parse_dud_parameter
+  read_iso_info
 );
 
 =head2 expand_patterns

@@ -1091,4 +1091,21 @@ sub read_iso_info {
     return $iso_info;
 }
 
+=head2 read_agama_package
+
+ read_agama_package();
+
+ Read agama package info from Agama Live ISO
+ Return a JSON string of package information
+
+=cut
+
+sub read_agama_package {
+    my $iso = get_var('ISO');
+    my $pkg_info = `isoinfo -j UTF-8 -R -x /LiveOS/.packages.json.gz -i $iso | gunzip | jq -r '.[] | select(.name=="agama")'`;
+    die "Error getting agama package info from ISO image" if ($? != 0);
+    record_info("Agama package", $pkg_info);
+    return $pkg_info;
+}
+
 1;

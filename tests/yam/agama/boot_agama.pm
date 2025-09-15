@@ -65,6 +65,7 @@ sub run {
     my $self = shift;
 
     my $info = read_iso_info();
+    my $pkg_info = read_agama_package();
     if ($info =~ /^Image.version:\s+(?<major_version>\d+)\./m) {
         set_var("AGAMA_VERSION", $+{'major_version'});
         record_info('AGAMAVERSION', $+{'major_version'});

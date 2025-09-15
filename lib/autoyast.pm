@@ -54,6 +54,7 @@ our @EXPORT = qw(
   generate_xml
   parse_dud_parameter
   read_iso_info
+  read_agama_package
 );
 
 =head2 expand_patterns

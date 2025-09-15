@@ -8,7 +8,7 @@
 use base "installbasetest";
 
 use testapi;
-use autoyast qw(create_file_as_profile_companion expand_agama_profile generate_json_profile parse_dud_parameter read_iso_info);
+use autoyast qw(create_file_as_profile_companion expand_agama_profile generate_json_profile parse_dud_parameter read_iso_info read_agama_package);
 use Utils::Architectures;
 use Utils::Backends;
 use Mojo::Util 'trim';

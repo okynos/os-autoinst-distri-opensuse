@@ -102,7 +102,7 @@ sub prepare_parmfile {
             $params .= " live.password=$testapi::password";
 
             # add optional boot params
-            $params .= ' rd.zdev=dasd,0.0.0150' unless (get_var('AGAMA_ACTIVATE_DASD') eq '1');
+            $params .= ' rd.zdev=dasd,0.0.0150' if (get_var('AGAMA_ACTIVATE_DASD') eq '1');
 
             # additional parameters requiring parsing
             $params .= parse_dud_parameter(get_var('INST_DUD')) if get_var('INST_DUD');

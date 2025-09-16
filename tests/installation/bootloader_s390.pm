@@ -77,7 +77,7 @@ sub prepare_parmfile {
     my ($repo) = @_;
     my $params = '';
     $params .= " " . get_var('S390_NETWORK_PARAMS');
-    $params .= " " . get_var('EXTRABOOTPARAMS');
+    $params .= " " . get_var('EXTRABOOTPARAMS') if get_var('EXTRABOOTPARAMS');
 
     $params .= remote_install_bootmenu_params unless (get_var('AGAMA'));
 

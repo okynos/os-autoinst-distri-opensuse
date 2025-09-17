@@ -29,7 +29,7 @@ sub run {
     zypper_call("--gpg-auto-import-keys -n in suse-migration-sle16-activation");
 
     # Disable repos of the product to migrate from due to proxySCC is not serving SLES 15 SP*
-    my $version = get_var('VERSION_UPGRADE_FROM');
+    my $version = join('_', split(/-/, get_var('VERSION_UPGRADE_FROM')));
     $version =~ s/-/_/;
     script_run('for s in $(zypper -t ls | grep _Module_' . "$version" . ' | sed -e \'s,|.*,,g\'); do zypper modifyservice --disable $s; done');
     power_action('reboot', textmode => 1, keepconsole => 1, first_reboot => 1);

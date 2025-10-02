@@ -53,6 +53,8 @@ our @EXPORT = qw(
   prepare_ay_file
   generate_xml
   parse_dud_parameter
+  read_iso_info
+  read_agama_package
 );
 
 =head2 expand_patterns
@@ -1071,6 +1073,40 @@ sub parse_dud_parameter {
     $dud .= ' inst.dud=' . shorten_url(data_url($_)) for split(',', $dud_raw_value);
     $dud .= ' rd.neednet=1 ';
     return $dud;
+}
+
+=head2 read_iso_info
+
+ read_iso_info();
+
+ Read info file from Agama Live ISO
+ Return a string of info file content
+
+=cut
+
+sub read_iso_info {
+    my $iso = get_var('ISO');
+    my $iso_info = `isoinfo -j UTF-8 -R -x /LiveOS/.info -i $iso`;
+    die "Error getting info from ISO image" if ($? != 0);
+    record_info("iso info", $iso_info);
+    return $iso_info;
+}
+
+=head2 read_agama_package
+
+ read_agama_package();
+
+ Read agama package info from Agama Live ISO
+ Return a JSON string of package information
+
+=cut
+
+sub read_agama_package {
+    my $iso = get_var('ISO');
+    my $pkg_info = `isoinfo -j UTF-8 -R -x /LiveOS/.packages.json.gz -i $iso | gunzip | jq -r '.[] | select(.name=="agama")'`;
+    die "Error getting agama package info from ISO image" if ($? != 0);
+    record_info("Agama package", $pkg_info);
+    return $pkg_info;
 }
 
 1;

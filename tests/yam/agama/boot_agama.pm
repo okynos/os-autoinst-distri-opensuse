@@ -8,12 +8,13 @@
 use base "installbasetest";
 
 use testapi;
-use autoyast qw(create_file_as_profile_companion expand_agama_profile generate_json_profile parse_dud_parameter);
+use autoyast qw(create_file_as_profile_companion expand_agama_profile generate_json_profile parse_dud_parameter read_iso_info read_agama_package);
 use Utils::Architectures;
 use Utils::Backends;
 use Mojo::Util 'trim';
 use File::Basename;
 use Yam::Agama::agama_base 'upload_agama_logs';
+use JSON qw(decode_json);
 
 BEGIN {
     unshift @INC, dirname(__FILE__) . '/../../installation';
@@ -63,6 +64,13 @@ sub prepare_boot_params {
 
 sub run {
     my $self = shift;
+
+    my $info = read_iso_info();
+    my $pkg_info = decode_json(read_agama_package());
+    if ($pkg_info->{version} =~ /(?<major_version>\d+)\+/m) {
+        set_var("AGAMA_VERSION", '18');
+        record_info('AGAMAVERSION', '18');
+    }
 
     # Please, avoid adding code here that would be a dependency for specific booting implementations
     # For now using legacy code to handle remote architectures

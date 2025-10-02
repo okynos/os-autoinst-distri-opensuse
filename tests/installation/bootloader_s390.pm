@@ -56,7 +56,7 @@ sub prepare_parmfile {
             $params .= $root_line;
 
             # add mandatory boot params
-            $params .= ' cio_ignore=all,!condev,!0.0.0150';
+            $params .= ' cio_ignore=all,!condev,!0.0.0150,!0.0.0160';
             $params .= ' hvc_iucv=8';
             $params .= " live.password=$testapi::password";
 

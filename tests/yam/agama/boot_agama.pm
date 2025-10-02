@@ -68,8 +68,8 @@ sub run {
     my $info = read_iso_info();
     my $pkg_info = decode_json(read_agama_package());
     if ($pkg_info->{version} =~ /(?<major_version>\d+)\+/m) {
-        set_var("AGAMA_VERSION", '18');
-        record_info('AGAMAVERSION', '18');
+        set_var("AGAMA_VERSION", $+{'major_version'});
+        record_info('AGAMAVERSION', $+{'major_version'});
     }
 
     # Please, avoid adding code here that would be a dependency for specific booting implementations

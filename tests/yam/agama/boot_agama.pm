@@ -67,9 +67,9 @@ sub run {
 
     read_iso_info();
     my $agama_pkg_info = decode_json(read_agama_package());
-    if ($agama_pkg_info->{version} =~ /(?<agama_major_version>\d+)\+./) {
+    if ($agama_pkg_info->{version} =~ /^(\d+)/) {
     #    set_var("AGAMA_VERSION", $+{'agama_major_version'});
-        record_info('AGAMAVERSION', $+{'agama_major_version'});
+        record_info('AGAMAVERSION', $1);
     }
 
     # Please, avoid adding code here that would be a dependency for specific booting implementations

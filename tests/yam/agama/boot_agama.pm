@@ -67,12 +67,11 @@ sub run {
 
     read_iso_info();
     my $agama_pkg_info = decode_json(read_agama_package());
-    $_ = $agama_pkg_info->{version};
-    if (/^(\d+)/) {
+    if ($agama_pkg_info->{version} =~ /^(\d+)/) {
     #    set_var("AGAMA_VERSION", $+{'agama_major_version'});
         record_info('AGAMAVERSION', $1);
-        $1 = '';
     }
+    if (̉"abc" =~ /(\d+)/){}
 
     # Please, avoid adding code here that would be a dependency for specific booting implementations
     # For now using legacy code to handle remote architectures

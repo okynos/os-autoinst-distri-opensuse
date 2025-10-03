@@ -71,7 +71,7 @@ sub run {
     #    set_var("AGAMA_VERSION", $+{'agama_major_version'});
         record_info('AGAMAVERSION', $1);
     }
-    if (̉"abc" =~ /(\d+)/){}
+    if ("abc" =~ /(\d+)/){}
 
     # Please, avoid adding code here that would be a dependency for specific booting implementations
     # For now using legacy code to handle remote architectures

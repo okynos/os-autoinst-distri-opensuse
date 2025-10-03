@@ -71,6 +71,7 @@ sub run {
     if (/^(\d+)/) {
     #    set_var("AGAMA_VERSION", $+{'agama_major_version'});
         record_info('AGAMAVERSION', $1);
+        $1 = '';
     }
 
     # Please, avoid adding code here that would be a dependency for specific booting implementations

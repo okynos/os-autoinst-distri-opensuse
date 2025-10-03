@@ -67,8 +67,8 @@ sub run {
 
     read_iso_info();
     my $agama_pkg_info = decode_json(read_agama_package());
-    my $var = $agama_pkg_info->{version};
-    if ($var =~ /^(\d+)/) {
+    my $_ = $agama_pkg_info->{version};
+    if (/^(\d+)/) {
     #    set_var("AGAMA_VERSION", $+{'agama_major_version'});
         record_info('AGAMAVERSION', $1);
     }

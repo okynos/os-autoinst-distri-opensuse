@@ -57,12 +57,12 @@ sub prepare_parmfile {
             $params .= $root_line;
 
             # add mandatory boot params
-            $params .= ' cio_ignore=all,!condev,!0.0.0150';
+            $params .= ' !condev';
             $params .= ' hvc_iucv=8';
             $params .= " live.password=$testapi::password";
 
             # add optional boot params
-            $params .= ' rd.zdev=dasd,0.0.0150' unless (get_var('AGAMA_ACTIVATE_DASD'));
+            #$params .= ' rd.zdev=dasd,0.0.0150' unless (get_var('AGAMA_ACTIVATE_DASD'));
 
             # additional parameters requiring parsing
             $params .= parse_dud_parameter(get_var('INST_DUD')) if get_var('INST_DUD');
@@ -335,7 +335,7 @@ sub run {
     }
 
     # format DASD before installation by default
-    format_dasd if (check_var('FORMAT_DASD', 'pre_install') && !get_var('INST_AUTO') && !get_var('INST_DUD'));
+    #format_dasd if (check_var('FORMAT_DASD', 'pre_install') && !get_var('INST_AUTO') && !get_var('INST_DUD'));
     create_encrypted_part_dasd if get_var('ENCRYPT_ACTIVATE_EXISTING');
 
     select_console("installation", timeout => 180);

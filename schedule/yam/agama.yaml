@@ -5,6 +5,7 @@ description: >
 schedule:
   - yam/agama/boot_agama
   - yam/agama/patch_agama_tests
+  - yam/validate/validate_self_update
   - yam/agama/agama
   - installation/grub_test
   - installation/first_boot
@@ -16,5 +17,4 @@ schedule:
   - yam/validate/validate_hostname
   - yam/validate/validate_snapshots
   - yam/validate/validate_registered_products
-  - yam/validate/validate_self_update
   - console/validate_repos

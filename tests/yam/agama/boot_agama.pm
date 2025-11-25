@@ -50,7 +50,9 @@ sub prepare_boot_params {
 
     push @params, 'inst.install_url=' . get_var('INST_INSTALL_URL') if get_var('INST_INSTALL_URL');
 
-    push @params, 'inst.self_update=' . get_var('INST_SELF_UPDATE') if get_var('INST_SELF_UPDATE');
+    push @params, 'inst.self_update=' . get_var('INST_SELF_UPDATE') if defined(get_var('INST_SELF_UPDATE'));
+
+    push @params, 'inst.self_update_ssl=' . get_var('INST_SELF_UPDATE') if defined(get_var('INST_SELF_UPDATE_SSL'));
 
     # add extra boot params along with the default ones
     push @params, split ' ', trim(get_var('EXTRABOOTPARAMS', ''));

@@ -46,6 +46,7 @@ sub run {
       " --product-version " . get_required_var('VERSION') .
       " --agama-version " . get_required_var('AGAMA_VERSION') .
       " --agama-package-version " . get_required_var('AGAMA_PACKAGE_VERSION') .
+      " --product-mode Standard" .
       " $test_options";
 
     record_info("node cmd", $node_cmd);

@@ -45,7 +45,7 @@ sub run {
       " /usr/share/agama/system-tests/${test}.js" .
       " --product-version " . get_required_var('VERSION') .
       " --agama-version " . get_required_var('AGAMA_VERSION') .
-      " --agama-package-version" . get_required_var('AGAMA_PACKAGE_VERSION') .
+      " --agama-package-version " . get_required_var('AGAMA_PACKAGE_VERSION') .
       " $test_options";
 
     record_info("node cmd", $node_cmd);

@@ -36,7 +36,8 @@ function(bootloader=true,
          ssl_certificates=false,
          storage='',
          decrypt_password='',
-         user=true) (
+         user=true,
+         questions_policy='') (
         base_lib.bootloader(bootloader, bootloader_timeout, bootloader_extra_kernel_params) +
         {
           [if dasd == true then 'dasd']: dasd_lib.dasd(),
@@ -53,6 +54,9 @@ function(bootloader=true,
             extraRepositories: if extra_repositories then software_lib['extraRepositories'],
             onlyRequired: if software_only_required then true,
           }),
+          [if questions_policy != '' then 'questions']: {
+            policy: questions_policy,
+          },
           [if product != '' then 'product']: {
             [if registration_code_ha != '' || registration_packagehub then 'addons']: std.prune([
               if registration_code_ha != '' then addons_lib.addon_ha(registration_code_ha),

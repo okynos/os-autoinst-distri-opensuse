@@ -133,6 +133,7 @@ sub enter_netboot_parameters {
     }
     my $ntlm_p = get_var('NTLM_AUTH_INSTALL') ? $ntlm_auth::ntlm_proxy : '';
     if (is_agama) {
+        $mntpoint .= "/loader" if (is_sle('16.1+'));
         my $mirror_http = get_required_var('MIRROR_HTTP');
         type_string_slow "linux $mntpoint/linux root=live:$mirror_http/LiveOS/squashfs.img live.password=$testapi::password console=hvc0";
         # inst.auto and inst.install_url are defined in below function
@@ -143,7 +144,6 @@ sub enter_netboot_parameters {
 
         # additional parameters requiring parsing
         type_string_slow parse_dud_parameter(get_var('INST_DUD')) if get_var('INST_DUD');
-        $mntpoint .= "/loader" if (is_sle('16.1+'));
     }
     else {
         type_string_slow "linux $mntpoint/linux vga=normal $ntlm_p install=$mirror ";

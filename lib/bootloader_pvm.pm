@@ -20,7 +20,7 @@ use testapi;
 use bootloader_setup;
 use registration 'registration_bootloader_params';
 use utils qw(get_netboot_mirror type_string_slow enter_cmd_slow);
-use version_utils qw(is_agama is_upgrade);
+use version_utils qw(is_agama is_upgrade is_sle);
 use Utils::Backends;
 use YuiRestClient;
 use ntlm_auth;

@@ -143,6 +143,7 @@ sub enter_netboot_parameters {
 
         # additional parameters requiring parsing
         type_string_slow parse_dud_parameter(get_var('INST_DUD')) if get_var('INST_DUD');
+        $mntpoint .= "/loader" if (is_sle('16.1+'));
     }
     else {
         type_string_slow "linux $mntpoint/linux vga=normal $ntlm_p install=$mirror ";

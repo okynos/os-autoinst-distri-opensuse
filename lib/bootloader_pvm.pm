@@ -125,7 +125,7 @@ sub enter_netboot_parameters {
     assert_screen "pvm-grub-command-line-fresh-prompt", no_wait => 1;
     my $repo = get_required_var('REPO_0');
     my $mirror = get_netboot_mirror;
-    my $mntpoint = "mnt/openqa/repo/$repo/boot/ppc64le";
+    my $mntpoint = is_sle('16.1+') ? "mnt/openqa/repo/$repo/boot/ppc64le/loader" : "mnt/openqa/repo/$repo/boot/ppc64le";
     if (my $ppc64le_grub_http = get_var('PPC64LE_GRUB_HTTP')) {
         # Enable grub http protocol to load file from OSD: (http,10.145.10.207)/assets/repo/$repo/boot/ppc64le
         $mntpoint = "$ppc64le_grub_http/assets/repo/$repo/boot/ppc64le";
@@ -133,7 +133,6 @@ sub enter_netboot_parameters {
     }
     my $ntlm_p = get_var('NTLM_AUTH_INSTALL') ? $ntlm_auth::ntlm_proxy : '';
     if (is_agama) {
-        $mntpoint .= "/loader" if (is_sle('16.1+'));
         my $mirror_http = get_required_var('MIRROR_HTTP');
         type_string_slow "linux $mntpoint/linux root=live:$mirror_http/LiveOS/squashfs.img live.password=$testapi::password console=hvc0";
         # inst.auto and inst.install_url are defined in below function

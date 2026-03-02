@@ -128,7 +128,7 @@ sub enter_netboot_parameters {
     my $mntpoint = is_sle('16.1+') ? "mnt/openqa/repo/$repo/boot/ppc64le/loader" : "mnt/openqa/repo/$repo/boot/ppc64le";
     if (my $ppc64le_grub_http = get_var('PPC64LE_GRUB_HTTP')) {
         # Enable grub http protocol to load file from OSD: (http,10.145.10.207)/assets/repo/$repo/boot/ppc64le
-        $mntpoint = "$ppc64le_grub_http/assets/repo/$repo/boot/ppc64le";
+        $mntpoint = is_sle('16.1+') ? "$ppc64le_grub_http/assets/repo/$repo/boot/ppc64le/loader" : "$ppc64le_grub_http/assets/repo/$repo/boot/ppc64le";
         record_info("Updated boot path for PPC64LE_GRUB_HTTP defined", $mntpoint);
     }
     my $ntlm_p = get_var('NTLM_AUTH_INSTALL') ? $ntlm_auth::ntlm_proxy : '';

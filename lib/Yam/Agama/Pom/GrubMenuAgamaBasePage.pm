@@ -14,9 +14,12 @@ use testapi;
 sub new {
     my ($class, $args) = @_;
     return bless {
-        key_edit_entry => 'e'
+        grub_menu_base => $args->{grub_menu_base},
     }, $class;
 }
+
+sub edit_current_entry { shift->{grub_menu_base}->boot_from_hd() }
+sub select_first_entry { shift->{grub_menu_base}->boot_from_hd() }
 
 sub boot_from_hd {
     send_key_until_needlematch 'inst-bootmenu-boot-harddisk', 'down';
@@ -26,15 +29,6 @@ sub boot_from_hd {
 sub select_check_installation_medium_entry {
     my ($self) = @_;
     send_key_until_needlematch('grub-menu-agama-mediacheck-highlighted', 'down');
-}
-
-sub edit_current_entry {
-    my ($self) = @_;
-    wait_screen_change { send_key($self->{key_edit_entry}) };
-}
-
-sub select_first_entry {
-    send_key("ret");
 }
 
 sub select_rescue_system_entry {

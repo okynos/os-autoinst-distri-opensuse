@@ -19,16 +19,16 @@ sub new {
     }, $class;
 }
 
-sub expect_is_shown {
-    my ($self) = @_;
-    assert_screen($self->{tag_first_entry_highlighted}, 60);
-}
-
 sub select_install_product { }
 sub boot_from_hd { shift->{grub_menu_base}->boot_from_hd() }
 sub select_check_installation_medium_entry { shift->{grub_menu_base}->select_check_installation_medium_entry() }
 sub edit_current_entry { shift->{grub_menu_base}->edit_current_entry() }
 sub select_first_entry { shift->{grub_menu_base}->select_first_entry() }
 sub select_rescue_system_entry { shift->{grub_menu_base}->select_rescue_system_entry() }
+
+sub expect_is_shown {
+    my ($self) = @_;
+    assert_screen($self->{tag_first_entry_highlighted}, 60);
+}
 
 1;

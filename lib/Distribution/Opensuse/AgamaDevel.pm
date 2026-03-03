@@ -29,7 +29,8 @@ use Yam::Agama::Pom::EnterPassphraseForHomePage;
 use Utils::Architectures;
 
 sub get_grub_menu_agama {
-    my $args = {grub_menu_base => Yam::Agama::Pom::GrubMenuAgamaBasePage->new()};
+    my $args = {grub_menu_agama_base =>
+      Yam::Agama::Pom::GrubMenuAgamaBasePage->new(Yam::Agama::Pom::GrubMenuBasePage->new())};
     return (is_x86_64() && !is_uefi_boot)
       ? Yam::Agama::Pom::GrubMenuAgamaPageWithBootFromHD->new($args)
       : Yam::Agama::Pom::GrubMenuAgamaPage->new($args);

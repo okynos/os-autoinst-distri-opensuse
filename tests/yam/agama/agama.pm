@@ -10,6 +10,7 @@ use Carp qw(croak);
 use testapi qw(
   diag
   get_var
+  set_var
   get_required_var
   script_run
   script_output
@@ -72,6 +73,7 @@ sub run {
       # reboot via console
       power_action('reboot', keepconsole => 1, first_reboot => 1) :
       # graphical reboot
+      set_var('BOOTFROM', 'c');
       $reboot_page->reboot();
 }
 

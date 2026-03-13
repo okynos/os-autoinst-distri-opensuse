@@ -73,7 +73,6 @@ sub run {
       # reboot via console
       power_action('reboot', keepconsole => 1, first_reboot => 1) :
       # graphical reboot
-      script_run("eject cdrom", timeout => 30);
       $reboot_page->reboot();
 }
 

@@ -73,7 +73,7 @@ sub run {
       # reboot via console
       power_action('reboot', keepconsole => 1, first_reboot => 1) :
       # graphical reboot
-      set_var('BOOTFROM', 'c');
+      script_run("eject cdrom", timeout => 30);
       $reboot_page->reboot();
 }
 

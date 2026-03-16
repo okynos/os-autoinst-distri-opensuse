@@ -13,8 +13,8 @@ sub run {
     my $grub_menu = $testapi::distri->get_grub_menu_agama();
 
     $grub_menu->expect_is_shown();
-    $grub_menu->boot_from_hd();
-    opensusebasetest::handle_uefi_boot_disk_workaround() if is_aarch64;
+    #$grub_menu->boot_from_hd();
+    opensusebasetest::handle_uefi_boot_disk_workaround();# if is_aarch64;
 }
 
 1;

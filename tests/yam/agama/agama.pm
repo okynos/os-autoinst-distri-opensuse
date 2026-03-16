@@ -10,7 +10,6 @@ use Carp qw(croak);
 use testapi qw(
   diag
   get_var
-  set_var
   get_required_var
   script_run
   script_output

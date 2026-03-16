@@ -5,7 +5,6 @@ description: >
 schedule:
   - yam/agama/boot_agama
   - yam/agama/agama_auto
-  - yam/agama/agama_boot_from_hdd
   - installation/first_boot
   - console/validate_md_raid
   - console/validate_raid

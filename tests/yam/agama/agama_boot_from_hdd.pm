@@ -14,6 +14,7 @@ sub run {
 
     $grub_menu->expect_is_shown();
     #$grub_menu->boot_from_hd();
+    $grub_menu->select_uefi_firmware_settings_entry();
     opensusebasetest::handle_uefi_boot_disk_workaround();# if is_aarch64;
 }
 

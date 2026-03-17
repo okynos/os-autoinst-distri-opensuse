@@ -44,6 +44,11 @@ sub select_rescue_system_entry {
     send_key_until_needlematch('grub-menu-agama-rescue-system-highlighted', 'down');
 }
 
+sub select_uefi_firmware_settings_entry {
+    send_key_until_needlematch('grub-menu-agama-uefi-firmware-settings-highlighted', 'down');
+    send_key 'ret';
+}
+
 sub edit_current_entry { shift->{grub_menu_base}->edit_current_entry() }
 
 1;

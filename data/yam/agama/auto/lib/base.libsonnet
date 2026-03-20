@@ -20,9 +20,9 @@
     hashedPassword: true,
     userName: 'bernhard'
   },
-  root(password):: {
+  root(password, ssh_pub_key):: {
     [if password then 'password']: '$6$vYbbuJ9WMriFxGHY$gQ7shLw9ZBsRcPgo6/8KmfDvQ/lCqxW8/WnMoLCoWGdHO6Touush1nhegYfdBbXRpsQuy/FTZZeg7gQL50IbA/',
     [if password then 'hashedPassword']: true,
-    sshPublicKey: 'fake public key to enable sshd and open firewall',
+    [if ssh_pub_key then 'sshPublicKey']: ssh_pub_key,
   },
 }

@@ -808,7 +808,7 @@ sub generate_json_profile {
     my $profile_path = get_required_var('CASEDIR') . "/data/" . $profile;
 
     my @profile_options = map { "--tla-" . (/true|false/ ? "code" : "str") . " $_ " }
-      map { join('=', split(/=/, $_, 2));
+      map { join('=', split(/=/, $_));
       } trim(get_var('AGAMA_PROFILE_OPTIONS'));
     diag "jsonnet @profile_options $profile_path";
     record_info("JSONNET Command", "jsonnet @profile_options $profile_path");

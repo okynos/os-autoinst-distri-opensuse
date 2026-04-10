@@ -22,7 +22,7 @@ sub run {
     zypper_call("in -y mkdud");
     assert_script_run("mkdir -p tmp/dud/root");
     assert_script_run("curl -o tmp/dud/root/autoinst.json $profile_url");
-    assert_script_run("mkdud --create $archived_dud_with_profile tmp/dud/root --dist sle16");
+    assert_script_run("mkdud --create $archived_dud_with_profile tmp/dud/root --dist sles16.1");
     upload_asset($archived_dud_with_profile);
 
     my $arch = get_required_var('ARCH');

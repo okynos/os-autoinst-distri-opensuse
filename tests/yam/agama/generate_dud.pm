@@ -19,7 +19,7 @@ sub run {
 
     # https://progress.opensuse.org/issues/185122
     #zypper_call("ar -f -G https://download.suse.de/ibs/SUSE:/SLFO:/Products:/SLES:/" . get_var('VERSION') . ":/PUBLISH/product/repo/SLES-" . get_var('VERSION') . "-" . get_var('ARCH') . "/?ssl_verify=no install");
-    zypper_call("ar -f -G https://download.opensuse.org/repositories/home:/snwint:/ports/SLFO-Main/noarch/ . "/?ssl_verify=no install");
+    zypper_call("ar -f -G https://download.opensuse.org/repositories/home:/snwint:/ports/SLFO-Main/noarch/" . "/?ssl_verify=no install");
     
     zypper_call("in -y mkdud");
     assert_script_run("mkdir -p tmp/dud/root");

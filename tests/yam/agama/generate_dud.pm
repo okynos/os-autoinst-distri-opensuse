@@ -21,7 +21,7 @@ sub run {
     #zypper_call("ar -f -G https://download.suse.de/ibs/SUSE:/SLFO:/Products:/SLES:/" . get_var('VERSION') . ":/PUBLISH/product/repo/SLES-" . get_var('VERSION') . "-" . get_var('ARCH') . "/?ssl_verify=no install");
     zypper_call("ar -f -G https://download.suse.de/ibs/SUSE:/Factory:/Head/standard/?ssl_verify=no install");
     
-    zypper_call("in -y mkdud");
+    zypper_call("in --no-recommends -y mkdud");
     assert_script_run("mkdir -p tmp/dud/root");
     assert_script_run("curl -o tmp/dud/root/autoinst.json $profile_url");
     assert_script_run("mkdud --create $archived_dud_with_profile tmp/dud/root --dist sles16.1");

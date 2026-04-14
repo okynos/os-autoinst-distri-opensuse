@@ -23,7 +23,12 @@ sub upload_agama_logs {
         script_run("tar czvf /tmp/agama_scripts.tar.gz /run/agama/scripts/*", {timeout => 60});
         upload_logs("/tmp/agama_scripts.tar.gz", failok => 1);
     }
-    save_and_upload_log('agama config show > /tmp/agama-config.json', "/tmp/agama-config.json", {timeout => 60});
+
+    eval {
+        save_and_upload_log('agama config show > /tmp/agama-config.json', "/tmp/agama-config.json", {timeout => 60});
+    };
+    diag "Error in agama config show command, $@" if ($@);
+
     script_run("agama logs store -d /tmp/agama-logs", {timeout => 60});
     upload_logs("/tmp/agama-logs.tar.gz", failok => 1);
     save_and_upload_log('journalctl -b > /tmp/journal.log', "/tmp/journal.log", {timeout => 60});

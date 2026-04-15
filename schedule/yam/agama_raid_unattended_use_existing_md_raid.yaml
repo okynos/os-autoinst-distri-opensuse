@@ -5,3 +5,5 @@ description: >
 schedule:
   - yam/agama/boot_agama
   - yam/agama/agama_auto
+  - shutdown/cleanup_before_shutdown
+  - shutdown/shutdown

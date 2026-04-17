@@ -130,7 +130,7 @@ local raid(level='raid0', boot_type='bios') = {
         mdroot_partition,
         mdswap_partition,
         {
-          size: '512 MiB',
+          size: '1024 MiB',
           filesystem: { path: '/boot', type: 'xfs' },
           alias: 'boot-disk',
         },
@@ -149,7 +149,7 @@ local raid(level='raid0', boot_type='bios') = {
         mdroot_partition,
         mdswap_partition,
         {
-          size: '512 MiB',
+          size: '1024 MiB',
           filesystem: { type: 'xfs' },
         },
       ],
@@ -231,7 +231,7 @@ local search_raid0() = {
         {
           search: {
             condition: {
-              size: '512 MiB'
+              size: '1024 MiB'
             }
           },
           filesystem: {

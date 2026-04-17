@@ -123,17 +123,17 @@ local raid(level='raid0', boot_type='bios') = {
       partitions: [
         { delete: true, search: '*' },
         {
-          size: '512 MiB',
-          filesystem: { path: '/boot', type: 'xfs' },
-          alias: 'boot-disk',
-        },
-        {
           id: 'esp',
           size: '300 MiB',
           filesystem: { path: '/boot/efi', type: 'vfat' },
         },        
         mdroot_partition,
         mdswap_partition,
+        {
+          size: '512 MiB',
+          filesystem: { path: '/boot', type: 'xfs' },
+          alias: 'boot-disk',
+        },
       ],
     },
     // Additional disks: EFI and boot partition, not mounted
@@ -142,16 +142,16 @@ local raid(level='raid0', boot_type='bios') = {
       partitions: [
         { delete: true, search: '*' },
         {
-          size: '512 MiB',
-          filesystem: { type: 'xfs' },
-        },
-        {
           id: 'esp',
           size: '300 MiB',
           filesystem: { type: 'vfat' },
         },
         mdroot_partition,
         mdswap_partition,
+        {
+          size: '512 MiB',
+          filesystem: { type: 'xfs' },
+        },
       ],
     },
   ] else if boot_type == 'prep' then [

@@ -258,8 +258,7 @@ local search_raid0() = {
     }
   ],
   boot: {
-    configure: true,
-    device: 'boot-disk',
+    configure: false,
   },
 };
 

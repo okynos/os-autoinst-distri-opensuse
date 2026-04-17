@@ -233,7 +233,7 @@ local search_raid0() = {
             condition: {
               size: '512 MiB'
             }
-          }
+          },
           filesystem: {
             path: '/boot',
             type: 'xfs'

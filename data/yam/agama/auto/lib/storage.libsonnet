@@ -123,19 +123,28 @@ local raid(level='raid0', boot_type='bios') = {
       partitions: [
         { delete: true, search: '*' },
         {
+          size: '512 MiB',
+          filesystem: { path: '/boot', type: 'xfs' },
+          alias: 'boot-disk',
+        },
+        {
           id: 'esp',
           size: '300 MiB',
           filesystem: { path: '/boot/efi', type: 'vfat' },
-        },
+        },        
         mdroot_partition,
         mdswap_partition,
       ],
     },
-    // Additional disks: EFI partition, not mounted
+    // Additional disks: EFI and boot partition, not mounted
     {
       search: '*',
       partitions: [
         { delete: true, search: '*' },
+        {
+          size: '512 MiB',
+          filesystem: { type: 'xfs' },
+        },
         {
           id: 'esp',
           size: '300 MiB',
@@ -237,7 +246,8 @@ local search_raid0() = {
     }
   ],
   boot: {
-    configure: false
+    configure: true,
+    device: 'boot-disk',
   },
 };
 

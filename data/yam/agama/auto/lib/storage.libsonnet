@@ -228,6 +228,18 @@ local search_raid0() = {
             type: 'vfat'
           },
         },
+        {
+          search: {
+            condition: {
+              size: '512 MiB'
+            }
+          }
+          filesystem: {
+            path: '/boot',
+            type: 'xfs'
+          },
+          alias: 'boot-disk',
+        },
       ],
     },
   ],

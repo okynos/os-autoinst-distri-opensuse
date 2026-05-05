@@ -7,7 +7,7 @@
         port: 3260,
         name: 'iqn.2016-02.openqa.de:for.openqa',
         interface: 'default',
-        startup: 'automatic',
+        startup: 'onboot',
       },
     ],
   },

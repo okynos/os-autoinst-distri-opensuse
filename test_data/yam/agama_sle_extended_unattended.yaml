@@ -21,7 +21,7 @@ repos:
     uri: http://openqa.suse.de/assets/repo/SLES-%VERSION%-%ARCH%-Source-Build%BUILD%/
     enabled: 'No'
     filter: name
-  - name: NVIDIA-GPU-Compute-Toolkit-CUDA
+  - name: NVIDIA-GPU-Compute-Toolkit-CUDA-16
     alias: SUSE_Linux_Enterprise_Server_%VERSION%_%ARCH%:NVIDIA-GPU-Compute-Toolkit-CUDA
     uri: https://developer.download.nvidia.com/compute/cuda/repos/sles15/%ARCH%
     enabled: 'No'

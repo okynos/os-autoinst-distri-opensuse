@@ -28,8 +28,4 @@ sub run {
     select_console 'installation', await_console => 0, ignore => 1;
 }
 
-sub post_run_hook {
-    return;
-}
-
 1;
